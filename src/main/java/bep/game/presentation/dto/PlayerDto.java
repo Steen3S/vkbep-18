@@ -1,10 +1,10 @@
-package bep.lingo.domain;
+package bep.game.presentation.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class Game {
-    
+public class PlayerDto {
+    private String username;
 }

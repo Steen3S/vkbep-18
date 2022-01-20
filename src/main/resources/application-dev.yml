@@ -1,10 +1,10 @@
-# Development specific properties
+# Production specific properties
 
 spring:
   datasource:
-    url: jdbc:h2:mem:mydb
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
+    platform: postgres
+    url: jdbc:postgresql://localhost:15432/cisq1-lingo
+    username: admin
+    password: admin
   jpa:
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
