@@ -6,5 +6,5 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class PlayerDto {
-    private String username;
+    String username;
 }

@@ -3,6 +3,7 @@ package bep.words.application;
 import org.springframework.stereotype.Service;
 
 import bep.words.data.SpringWordRepository;
+import bep.words.domain.Word;
 import bep.words.domain.exception.WordLengthNotSupportedException;
 
 import javax.transaction.Transactional;
@@ -16,10 +17,13 @@ public class WordService {
         this.wordRepository = wordRepository;
     }
 
-    public String provideRandomWord(Integer length) {
-        return this.wordRepository
-                .findRandomWordByLength(length)
-                .orElseThrow(() -> new WordLengthNotSupportedException(length))
-                .getValue();
+    public Word provideRandomWord(Integer length) {
+        String value = this.wordRepository
+        .findRandomWordByLength(length)
+        .orElseThrow(() -> new WordLengthNotSupportedException(length))
+        .getValue();
+        
+
+        return new Word(value);
     }
 }

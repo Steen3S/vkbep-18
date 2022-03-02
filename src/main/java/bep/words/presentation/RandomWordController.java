@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import bep.words.application.WordService;
+import bep.words.domain.Word;
 import bep.words.domain.exception.WordLengthNotSupportedException;
 
 @RestController
@@ -20,7 +21,7 @@ public class RandomWordController {
     }
 
     @GetMapping("random")
-    public String getRandomWord(@RequestParam Integer length) {
+    public Word getRandomWord(@RequestParam Integer length) {
         try {
             return this.service.provideRandomWord(length);
         } catch (WordLengthNotSupportedException exception) {

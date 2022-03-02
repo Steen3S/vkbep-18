@@ -3,6 +3,7 @@ CREATE TABLE words (
     length smallint
 ); 
 
+
 -- Extracted from: https://github.com/OpenTaal/opentaal-wordlist/
 INSERT INTO words (word, length) VALUES 
 	('aagje', 5),

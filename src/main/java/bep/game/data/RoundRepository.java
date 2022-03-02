@@ -3,9 +3,9 @@ package bep.game.data;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import bep.game.domain.Game;
+import bep.game.domain.Round;
 
 @Repository
-public interface GameRepository extends JpaRepository<Game, Long> {
-    
+public interface RoundRepository extends JpaRepository<Round, Long> {
+
 }

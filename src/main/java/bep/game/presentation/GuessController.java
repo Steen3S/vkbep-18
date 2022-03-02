@@ -1,0 +1,76 @@
+package bep.game.presentation;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import bep.game.application.GameService;
+import bep.game.application.GuessService;
+import bep.game.application.PlayerService;
+import bep.game.application.RoundService;
+import bep.game.domain.Game;
+import bep.game.domain.Guess;
+import bep.game.domain.Round;
+import bep.game.presentation.dto.GuessDto;
+import bep.words.application.WordService;
+import net.minidev.json.JSONObject;
+
+@RestController
+@RequestMapping("/guess")
+public class GuessController {
+    @Autowired
+    GameService gameService;
+
+    @Autowired
+    PlayerService playerService;
+
+    @Autowired
+    GuessService guessService;
+
+    @Autowired
+    RoundService roundService;
+
+    @Autowired
+    WordService wordService;
+
+    @PostMapping("/{gameId}")
+    public ResponseEntity<?> guess(@PathVariable String gameId, @RequestBody GuessDto guessDto) {
+
+        Game game = gameService.getGameById(Long.parseLong(gameId));
+
+        try {
+
+            Guess guess = guessService.makeGuess(game, guessDto.getGuess());
+
+            JSONObject obj = new JSONObject();
+
+            if (guess.isCorrect()) {
+
+                var word = wordService.provideRandomWord(game.calculateWordLength());
+
+                Round nextRound = new Round();
+
+                nextRound.setWord(word);
+                nextRound.setGame(game);
+                game.addRound(nextRound);
+
+                roundService.save(nextRound);
+
+                gameService.save(game);
+
+                obj.put("message", "You did great!");
+                obj.put("guess_status", guess.getStatus());
+                obj.put("first_character", nextRound.getWord().getValue().charAt(0));
+                return ResponseEntity.ok().body(obj);
+            }
+            return ResponseEntity.ok().body(guess.getStatus());
+
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.getMessage());
+        }
+    }
+}

@@ -4,7 +4,8 @@ spring:
   datasource:
     platform: postgres
     url: jdbc:postgresql://localhost:15432/cisq1-lingo
-    username: admin
-    password: admin
+    username: cisq1-lingo
+    password: cisq1-lingo
   jpa:
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
