@@ -1,10 +1,9 @@
-# Production specific properties
+# Production specific properties deployed on Heroku
 
 spring:
   datasource:
-    url: jdbc:h2:mem:mydb
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
+    driver-class-name: org.postgresql.Driver
+    url: ${DATABASE_URL}
   jpa:
-    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
