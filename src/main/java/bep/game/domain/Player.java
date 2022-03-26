@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Accessors(chain = true)
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Player {
     @Id
@@ -22,6 +25,6 @@ public class Player {
 
     String name;
 
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
     List<Game> games = new ArrayList<>();
 }

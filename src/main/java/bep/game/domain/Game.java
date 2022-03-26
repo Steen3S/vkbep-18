@@ -3,7 +3,6 @@ package bep.game.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,11 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
-@Data
-@Accessors(chain = true)
+@Slf4j
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Game {
     @Id
@@ -27,7 +30,7 @@ public class Game {
 
     double score;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     Player player;
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
@@ -53,16 +56,13 @@ public class Game {
     }
 
     public double increaseScore(double s) {
-        return this.score += s;
+        double score = this.score += s;
+        log.info("New score is: {}", score);
+        return score;
+
     }
 
     public void endGame() {
         this.status = GameStatus.DONE;
     }
-
-}
-
-enum GameStatus {
-    PLAYING,
-    DONE
 }

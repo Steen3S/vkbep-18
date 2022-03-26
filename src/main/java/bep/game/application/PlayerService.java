@@ -16,7 +16,14 @@ public class PlayerService {
     public Player findOrCreate(String name) {
         Optional<Player> player = playerRepository.findByName(name);
 
-        return player.isPresent() ? player.get() : playerRepository.save(new Player().setName(name));
+        if (player.isPresent()) {
+            return player.get();
+        } else {
+            var p = new Player();
+            p.setName(name);
+            return playerRepository.save(p);
+        }
+
     }
 
     public Player getByName(String name) {

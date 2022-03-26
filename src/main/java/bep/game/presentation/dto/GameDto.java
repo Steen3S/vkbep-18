@@ -3,12 +3,12 @@ package bep.game.presentation.dto;
 import java.util.HashMap;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
 @AllArgsConstructor
-@Accessors(chain = true)
+@Getter
+@Setter
 public class GameDto {
     Long game_id;
     Long player_id;

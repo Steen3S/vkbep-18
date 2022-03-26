@@ -1,22 +1,24 @@
 package bep.game.presentation;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import bep.game.application.GameService;
 import bep.game.application.PlayerService;
 import bep.game.application.RoundService;
 import bep.game.domain.Game;
-import bep.game.domain.Round;
 import bep.game.presentation.dto.GameDto;
 import bep.game.presentation.dto.PlayerDto;
 import bep.words.application.WordService;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping("/game")
 public class GameController {
@@ -32,32 +34,35 @@ public class GameController {
     @Autowired
     WordService wordService;
 
+    @GetMapping
+    public ResponseEntity<List<GameDto>> getAll() {
+        List<GameDto> response = new ArrayList<GameDto>();
+
+        for (Game g : gameService.getAll()) {
+            GameDto gdto = new GameDto(g.getId(), g.getPlayer().getId(), g.getRoundCount(), g.getCurrentRound().peak());
+            response.add(gdto);
+        }
+
+        return ResponseEntity.ok().body(response);
+    }
+
     @PostMapping
     public ResponseEntity<GameDto> start(@RequestBody PlayerDto playerDto) {
         var player = playerService.findOrCreate(playerDto.getUsername());
         // log.info("Player created {}", player);
 
         Game newGame = gameService.newGame(player);
-        log.info("Created new game");
+
         // Round round = roundService.create(newGame);
         var word = wordService.provideRandomWord(5);
-        log.info("Created new word");
-        var round = new Round().setGame(newGame).setWord(word);
-        log.info("Created new round");
+        var round = roundService.create(newGame, word);
 
         gameService.save(newGame);
         roundService.save(round);
-        // var saveround = roundService.save(round);
-        // log.info("round provided by round servcice {}", saveround.getId());
 
-        HashMap<Integer, Character> peak = new HashMap<Integer, Character>();
+        GameDto response = new GameDto(newGame.getId(), player.getId(), newGame.getRoundCount(),
+                newGame.getCurrentRound().peak());
 
-        for (int i = 0; i < word.getLength(); i++) {
-            peak.put(i, i == 0 ? word.getValue().charAt(i) : '*');
-        }
-
-        var body = new GameDto(newGame.getId(), player.getId(), newGame.getRoundCount(), peak);
-
-        return ResponseEntity.ok().body(body);
+        return ResponseEntity.ok().body(response);
     }
 }

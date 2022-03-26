@@ -1,5 +1,7 @@
 package bep.game.application;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +17,19 @@ public class GameService {
     private GameRepository gameRepository;
 
     public Game newGame(Player player) {
-        var game = new Game().setPlayer(player);
+        Game game = new Game();
+        game.setPlayer(player);
+        log.info("Created new game! id: {}", game.getId());
         return game;
     }
 
     public Game getGameById(Long id) {
         log.info("Getting game by id {}", id);
         return this.gameRepository.getById(id);
+    }
+
+    public List<Game> getAll() {
+        return this.gameRepository.findAll();
     }
 
     public Game save(Game game) {
