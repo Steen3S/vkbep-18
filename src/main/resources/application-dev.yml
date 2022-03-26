@@ -2,7 +2,7 @@
 
 spring:
   datasource:
-    platform: postgres
+    platform: postgresql
     url: jdbc:postgresql://localhost:15432/cisq1-lingo
     username: cisq1-lingo
     password: cisq1-lingo

@@ -2,6 +2,7 @@
 
 spring:
   datasource:
+    platform: postgresql
     driver-class-name: org.postgresql.Driver
     url: ${DATABASE_URL}
     initialization-mode: always
