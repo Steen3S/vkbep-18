@@ -9,14 +9,6 @@ spring:
 
 debug: false
 
-# logging.level.org.springframework.web: DEBUG
-# logging.level.root: DEBUG
-
 server:
-  port: 8080
   servlet:
     context-path: /
-
-java:
-  runtime:
-    version: 11
