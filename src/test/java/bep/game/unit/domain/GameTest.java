@@ -7,10 +7,11 @@ import java.lang.reflect.Constructor;
 import org.junit.jupiter.api.Test;
 
 import bep.game.domain.Game;
+import bep.game.domain.GameStatus;
 import bep.game.domain.Round;
 import bep.words.domain.Word;
 
-public class GameTest {
+class GameTest {
     @Test
     void EntityNoConstructorTest() {
         Constructor<?>[] constructors = Game.class.getConstructors();
@@ -32,6 +33,18 @@ public class GameTest {
     }
 
     @Test
+    void getCurrentRound() {
+        Game g = new Game();
+        Round r = new Round();
+        Word w = new Word("hello");
+
+        r.setWord(w);
+        g.addRound(r);
+
+        assertEquals(g.getCurrentRound(), r);
+    }
+
+    @Test
     void increaseScore() {
         Game g = new Game();
         Round r = new Round();
@@ -43,5 +56,19 @@ public class GameTest {
         g.increaseScore(10.9);
 
         assertEquals(g.getScore(), 10.9);
+    }
+
+    @Test
+    void endGame() {
+        Game g = new Game();
+        Round r = new Round();
+        Word w = new Word("hello");
+
+        r.setWord(w);
+        g.addRound(r);
+
+        g.endGame();
+
+        assertEquals(g.getStatus(), GameStatus.DONE);
     }
 }

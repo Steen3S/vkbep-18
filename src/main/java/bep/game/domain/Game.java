@@ -34,10 +34,10 @@ public class Game {
     Player player;
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
-    public List<Round> rounds = new ArrayList<>();
+    private List<Round> rounds = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    public GameStatus status = GameStatus.PLAYING;
+    private GameStatus status = GameStatus.PLAYING;
 
     public int calculateWordLength() {
         return rounds.size() % 3 + 5;

@@ -23,20 +23,23 @@ public class GameControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Test
-    public void startNewGame() {
-        GameDto r = this.restTemplate.postForObject("http://localhost:" + port + "/game",
-                new PlayerDto().setUsername("dries"), GameDto.class);
-    }
+    // @Test
+    // public void startNewGame() {
+    // GameDto r = this.restTemplate.postForObject("http://localhost:" + port +
+    // "/game",
+    // new PlayerDto().setUsername("dries"), GameDto.class);
+    // }
 
-    @Test
-    public void greetingShouldReturnDefaultMessage() throws Exception {
-        String r = this.restTemplate.getForObject("http://localhost:" + port + "/game",
-                String.class);
+    // @Test
+    // public void greetingShouldReturnDefaultMessage() throws Exception {
+    // String r = this.restTemplate.getForObject("http://localhost:" + port +
+    // "/game",
+    // String.class);
 
-        log.info("returned string={}", r);
+    // log.info("returned string={}", r);
 
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/game",
-                String.class)).isNotNull();
-    }
+    // assertThat(this.restTemplate.getForObject("http://localhost:" + port +
+    // "/game",
+    // String.class)).isNotNull();
+    // }
 }
