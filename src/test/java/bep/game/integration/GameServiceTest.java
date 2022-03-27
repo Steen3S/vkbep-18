@@ -21,10 +21,4 @@ public class GameServiceTest {
 
         gr.save(g);
     }
-
-    // @Test
-    // void getAllReturnsArray() {
-    // gs.getAll();
-    // }
-
 }

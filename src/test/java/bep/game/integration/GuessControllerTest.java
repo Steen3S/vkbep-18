@@ -6,15 +6,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.ResponseEntity;
 
-import bep.game.presentation.dto.GameDto;
-import bep.game.presentation.dto.PlayerDto;
+import bep.game.presentation.dto.GuessDto;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class GameControllerTest {
+public class GuessControllerTest {
     @LocalServerPort
     int port;
 
@@ -22,18 +20,23 @@ public class GameControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void getAllGamesShouldReturnOkay() {
-        String r = this.restTemplate.getForObject("http://localhost:" + port +
-                "/game", String.class);
+    public void makeGuessAndThrowNoError() {
+
+        GuessDto gDto = new GuessDto();
+        gDto.setGuess("beans");
+
+        var r = this.restTemplate.postForEntity("http://localhost:" + port +
+                "/guess", gDto, Object.class);
 
         log.info("returned string={}", r);
     }
 
-    @Test
-    public void newGameShouldReturnGameDto() {
-        ResponseEntity<GameDto> r = this.restTemplate.postForEntity("http://localhost:" + port +
-                "/game", new PlayerDto().setUsername("Dries"), GameDto.class);
+    // @Test
+    // public void newGameShouldReturnGameDto() throws Exception {
+    // ResponseEntity<GameDto> r =
+    // this.restTemplate.postForEntity("http://localhost:" + port +
+    // "/guess", new PlayerDto().setUsername("Dries"), GameDto.class);
 
-        log.info("returned gameDto={}", r);
-    }
+    // log.info("returned gameDto={}", r);
+    // }
 }

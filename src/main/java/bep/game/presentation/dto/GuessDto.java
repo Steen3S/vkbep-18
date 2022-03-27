@@ -1,8 +1,12 @@
 package bep.game.presentation.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class GuessDto {
     String guess;
 }
