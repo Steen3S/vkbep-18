@@ -7,6 +7,8 @@ import java.lang.reflect.Constructor;
 import org.junit.jupiter.api.Test;
 
 import bep.game.domain.Game;
+import bep.game.domain.Round;
+import bep.words.domain.Word;
 
 public class GameTest {
     @Test
@@ -15,5 +17,17 @@ public class GameTest {
 
         assertEquals(constructors.length, 1);
         assertEquals(constructors[0].getParameterCount(), 0);
+    }
+
+    @Test
+    void calculateWordLength() {
+        Game g = new Game();
+        Round r = new Round();
+        Word w = new Word("hello");
+
+        r.setWord(w);
+        g.addRound(r);
+
+        assertEquals(g.calculateWordLength(), 6);
     }
 }
