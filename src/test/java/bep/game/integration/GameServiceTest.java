@@ -1,24 +1,25 @@
 package bep.game.integration;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import static org.mockito.Mockito.mock;
 
-import bep.game.data.GameRepository;
-import bep.game.domain.Game;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import bep.game.application.GameService;
 import bep.game.domain.Player;
 
-@DataJpaTest
 public class GameServiceTest {
-    @Autowired
-    GameRepository gr;
+    Player p1;
+
+    @BeforeEach
+    void init() {
+        p1 = new Player();
+        p1.setName("P1");
+    }
 
     @Test
-    void saveGame() throws Exception {
-        Player p = new Player();
-        Game g = new Game();
-        g.setPlayer(p);
-
-        gr.save(g);
+    void startGame() {
+        GameService gas = mock(GameService.class);
+        gas.newGame(p1);
     }
 }
