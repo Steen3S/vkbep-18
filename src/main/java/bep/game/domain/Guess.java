@@ -24,10 +24,6 @@ public class Guess {
     @ManyToOne
     Round round;
 
-    public Guess(Round round) {
-        this.round = round;
-    }
-
     public GuessStatus[] getStatus() {
         GuessStatus[] stats = new GuessStatus[round.word.getLength()];
         String word = round.word.getValue();

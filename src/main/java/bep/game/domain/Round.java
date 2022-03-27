@@ -19,11 +19,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import bep.words.domain.Word;
 import lombok.Data;
-import lombok.experimental.Accessors;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Accessors(chain = true)
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Round {
     @Id

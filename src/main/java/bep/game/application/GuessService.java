@@ -29,7 +29,8 @@ public class GuessService {
             throw new Exception("Round is already closed");
         }
 
-        Guess guess = new Guess(currentRound);
+        Guess guess = new Guess();
+        guess.setRound(currentRound);
         guess.setValue(word);
         currentRound.getGuesses().add(guess);
 

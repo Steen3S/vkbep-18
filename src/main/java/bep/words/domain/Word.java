@@ -5,6 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "words")
 public class Word {
@@ -12,9 +19,6 @@ public class Word {
     @Column(name = "word")
     private String value;
     private Integer length;
-
-    public Word() {
-    }
 
     public Word(String word) {
         this.value = word;

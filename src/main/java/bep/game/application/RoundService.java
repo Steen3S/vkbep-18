@@ -17,7 +17,8 @@ public class RoundService {
 
     public Round create(Game game, Word word) {
         var round = new Round();
-        round.setGame(game).setWord(word);
+        round.setGame(game);
+        round.setWord(word);
         log.info("Created new round! id: {}", round.getId());
 
         return round;

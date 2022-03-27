@@ -18,7 +18,9 @@ import bep.game.domain.Game;
 import bep.game.presentation.dto.GameDto;
 import bep.game.presentation.dto.PlayerDto;
 import bep.words.application.WordService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/game")
 public class GameController {
@@ -55,13 +57,15 @@ public class GameController {
 
         // Round round = roundService.create(newGame);
         var word = wordService.provideRandomWord(5);
+        log.info("Word: {}", word.getValue());
+
         var round = roundService.create(newGame, word);
 
         gameService.save(newGame);
         roundService.save(round);
 
         GameDto response = new GameDto(newGame.getId(), player.getId(), newGame.getRoundCount(),
-                newGame.getCurrentRound().peak());
+                round.peak());
 
         return ResponseEntity.ok().body(response);
     }

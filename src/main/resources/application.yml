@@ -1,14 +1,10 @@
-# General Application Properties
+# Production specific properties
 
 spring:
-  profiles:
-    active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:15432/cisq1-lingo
+    username: cisq1-lingo
+    password: cisq1-lingo
   jpa:
-    hibernate:
-      ddl-auto: update
-
-debug: false
-
-server:
-  servlet:
-    context-path: /
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
