@@ -30,4 +30,18 @@ public class GameTest {
 
         assertEquals(g.calculateWordLength(), 6);
     }
+
+    @Test
+    void increaseScore() {
+        Game g = new Game();
+        Round r = new Round();
+        Word w = new Word("hello");
+
+        r.setWord(w);
+        g.addRound(r);
+
+        g.increaseScore(10.9);
+
+        assertEquals(g.getScore(), 10.9);
+    }
 }
